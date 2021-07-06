@@ -3,7 +3,7 @@ envName: env1
 default:
   app:
     destination:
-      server: https://github.com/davidwmcneill/gitops-playground-apps.git
+      server: https://kubernetes.default.svc
     source:
       targetRevision: develop
     enableAutoSync: false
