@@ -1,0 +1,16 @@
+envName: env2
+
+default:
+  app:
+    destination:
+      server: https://github.com/davidwmcneill/gitops-playground-apps.git
+    source:
+      targetRevision: master
+    enableAutoSync: false
+    autoSyncPrune: false
+    autoSyncSelfHeal: false
+
+applications:
+  metrics-server:
+    enabled: true
+    enableAutoSync: false

@@ -1,0 +1,35 @@
+#--------------------------------------------------------------
+# DEFAULT APP OF APP VALUES
+#--------------------------------------------------------------
+envName: null
+projectOverride: null
+default:
+  app:
+    enableFinalizer: null
+    enableAutoSync: null
+    autoSyncPrune: null
+    autoSyncSelfHeal: null
+    kustomize: null
+    destination:
+      namespace: null
+      server: null
+    project: null
+    source:
+      path: null
+      repoURL: https://github.com/davidwmcneill/gitops-playground-apps.git
+      targetRevision: HEAD
+      extraHelmFields: |
+        valueFiles:
+          - envValues/{{ $.Values.envName }}.yaml
+    ignoreDifferences: null
+#--------------------------------------------------------------
+# INFRA APPLICATIONS
+#--------------------------------------------------------------
+applications:
+  metrics-server:
+    enabled: false
+    destination:
+      namespace: kube-system
+    project: playground-project
+    source:
+      path: helm/cluster/metrics-server

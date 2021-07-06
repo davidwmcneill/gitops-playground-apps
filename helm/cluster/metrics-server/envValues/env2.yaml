@@ -1,0 +1,2 @@
+metrics-server:
+  envName: env2
