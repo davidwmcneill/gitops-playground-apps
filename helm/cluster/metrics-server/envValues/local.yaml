@@ -4,3 +4,4 @@ metrics-server:
 extraArgs:
   kubelet-insecure-tls: true
   kubelet-preferred-address-types: InternalIP
+  secure-port: 6445
