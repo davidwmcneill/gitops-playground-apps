@@ -9,6 +9,9 @@ default:
     enableAutoSync: null
     autoSyncPrune: null
     autoSyncSelfHeal: null
+    syncOptions: |
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=false
     kustomize: null
     destination:
       namespace: null
