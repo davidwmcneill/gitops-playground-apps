@@ -6,7 +6,7 @@ argo-workflows:
     # being deployed to.  In RBAC clusters, that will almost certainly fail.  See the NOTES: section of the readme for more info.
     serviceAccount: ""
   server:
-    baseHref: /argo-workflows/
+    baseHref: /argo/
     ingress:
       enabled: true
       annotations:
@@ -14,5 +14,5 @@ argo-workflows:
       labels: {}
       ingressClassName: ""
       paths:
-        - /argo-workflows
+        - /argo
       https: false
