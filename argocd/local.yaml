@@ -12,7 +12,7 @@ default:
 
 applications:
   metrics-server:
-    enabled: true
+    enabled: false
     enableAutoSync: true
     autoSyncPrune: true
     autoSyncSelfHeal: true
