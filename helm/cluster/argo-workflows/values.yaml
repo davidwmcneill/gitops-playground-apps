@@ -7,7 +7,6 @@ argo-workflows:
     serviceAccount: ""
   server:
     extraArgs:
-      - --insecure
       - --rootpath
       - /argo-workflows
     ingress:
