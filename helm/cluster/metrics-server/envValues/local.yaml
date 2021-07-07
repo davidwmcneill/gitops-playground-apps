@@ -1,7 +1,0 @@
-metrics-server:
-  envName: local
-
-extraArgs:
-  kubelet-insecure-tls: true
-  kubelet-preferred-address-types: InternalIP,ExternalIP,Hostname
-  secure-port: 6445

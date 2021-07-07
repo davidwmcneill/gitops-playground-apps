@@ -11,7 +11,7 @@ default:
     autoSyncSelfHeal: false
 
 applications:
-  metrics-server:
+  argo-workflows:
     enabled: false
     enableAutoSync: true
     autoSyncPrune: true

@@ -26,10 +26,10 @@ default:
 # INFRA APPLICATIONS
 #--------------------------------------------------------------
 applications:
-  metrics-server:
+  argo-workflows:
     enabled: false
     destination:
-      namespace: kube-system
+      namespace: argo
     project: playground-project
     source:
-      path: helm/cluster/metrics-server
+      path: helm/cluster/argo-workflows
