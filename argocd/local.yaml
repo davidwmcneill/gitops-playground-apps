@@ -1,4 +1,4 @@
-envName: env1
+envName: local
 
 default:
   app:
