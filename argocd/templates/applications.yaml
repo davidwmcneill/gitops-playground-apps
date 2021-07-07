@@ -21,11 +21,18 @@ spec:
 {{- else }}
   project: {{ $val.project | default $.Values.default.app.project | required (printf "No project specified for %s" $key ) }}
 {{- end }}
-{{- if $val.enableAutoSync | default $.Values.default.app.enableAutoSync }}
+
   syncPolicy:
+{{- if $val.enableAutoSync | default $.Values.default.app.enableAutoSync }}
     automated:
       prune: {{ $val.autoSyncPrune | default $.Values.default.app.autoSyncPrune | default true }}
       selfHeal: {{ $val.autoSyncSelfHeal | default $.Values.default.app.autoSyncSelfHeal | default true }}
+{{- end }}
+    syncOptions: 
+{{- if $val.syncOptions }}
+{{ tpl $val.syncOptions $ | indent 4 }}
+{{- else if $.Values.default.app.syncOptions }}
+{{ tpl $.Values.default.app.syncOptions $ | indent 4 }}
 {{- end }}
 
 {{- if $val.ignoreDifferences }}
