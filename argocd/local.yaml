@@ -13,3 +13,6 @@ default:
 applications:
   argo-workflows:
     enabled: true
+    enableAutoSync: true
+    autoSyncPrune: true
+    autoSyncSelfHeal: true
