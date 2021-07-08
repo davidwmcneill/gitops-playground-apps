@@ -11,5 +11,11 @@ default:
     autoSyncSelfHeal: false
 
 applications:
-  argo-workflows:
+  ingress-nginx:
     enabled: true
+    enableAutoSync: true
+    autoSyncPrune: true
+    autoSyncSelfHeal: true
+
+  argo-workflows:
+    enabled: false

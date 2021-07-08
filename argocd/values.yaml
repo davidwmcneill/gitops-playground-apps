@@ -36,3 +36,11 @@ applications:
     project: playground-project
     source:
       path: helm/cluster/argo-workflows
+
+  ingress-nginx:
+    enabled: false
+    destination:
+      namespace: ingress
+    project: playground-project
+    source:
+      path: helm/cluster/ingress-nginx
