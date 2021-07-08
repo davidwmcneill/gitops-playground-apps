@@ -18,4 +18,4 @@ applications:
     autoSyncSelfHeal: true
 
   argo-workflows:
-    enabled: false
+    enabled: true
