@@ -9,6 +9,9 @@ default:
     enableAutoSync: null
     autoSyncPrune: null
     autoSyncSelfHeal: null
+    syncOptions: |
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=false
     kustomize: null
     destination:
       namespace: null
@@ -26,10 +29,18 @@ default:
 # INFRA APPLICATIONS
 #--------------------------------------------------------------
 applications:
-  metrics-server:
+  argo-workflows:
     enabled: false
     destination:
-      namespace: kube-system
+      namespace: argo
     project: playground-project
     source:
-      path: helm/cluster/metrics-server
+      path: helm/cluster/argo-workflows
+
+  ingress-nginx:
+    enabled: false
+    destination:
+      namespace: ingress
+    project: playground-project
+    source:
+      path: helm/cluster/ingress-nginx

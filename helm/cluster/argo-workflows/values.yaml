@@ -1,0 +1,19 @@
+# https://github.com/bitnami/charts/blob/master/bitnami/metrics-server/values.yaml
+
+argo-workflows:
+  init:
+    # By default the installation will not set an explicit one, which will mean it uses `default` for the namespace the chart is
+    # being deployed to.  In RBAC clusters, that will almost certainly fail.  See the NOTES: section of the readme for more info.
+    serviceAccount: ""
+  server:
+    baseHref: /argo/
+    ingress:
+      enabled: true
+      annotations:
+        nginx.ingress.kubernetes.io/rewrite-target: /$2
+        ingress.kubernetes.io/ssl-redirect: "false"
+      labels: {}
+      ingressClassName: ""
+      paths:
+        - /argo(/|$)(.*)
+      https: false

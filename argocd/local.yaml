@@ -1,18 +1,21 @@
-envName: env1
+envName: local
 
 default:
   app:
     destination:
-      server: https://github.com/davidwmcneill/gitops-playground-apps.git
+      server: https://kubernetes.default.svc
     source:
-      targetRevision: develop
+      targetRevision: local
     enableAutoSync: false
     autoSyncPrune: false
     autoSyncSelfHeal: false
 
 applications:
-  metrics-server:
+  ingress-nginx:
     enabled: true
     enableAutoSync: true
     autoSyncPrune: true
     autoSyncSelfHeal: true
+
+  argo-workflows:
+    enabled: true

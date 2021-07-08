@@ -3,7 +3,7 @@ envName: env2
 default:
   app:
     destination:
-      server: https://github.com/davidwmcneill/gitops-playground-apps.git
+      server: https://kubernetes.default.svc
     source:
       targetRevision: master
     enableAutoSync: false
@@ -11,6 +11,6 @@ default:
     autoSyncSelfHeal: false
 
 applications:
-  metrics-server:
-    enabled: true
+  argo-workflows:
+    enabled: false
     enableAutoSync: false
