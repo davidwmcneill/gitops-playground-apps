@@ -9,13 +9,13 @@ spec:
   - name: build-kaniko-git
     inputs:
       parameters:
-      - name: repo_url
-      - name: repo_ref
-        value: refs/heads/master
-      - name: repo_commit_id
-        value: HEAD
-      - name: container_image
-      - name: container_tag
+        - name: repo_url
+        - name: repo_ref
+          value: refs/heads/master
+        - name: repo_commit_id
+          value: HEAD
+        - name: container_image
+        - name: container_tag
     container:
       image: gcr.io/kaniko-project/executor:debug
       args:

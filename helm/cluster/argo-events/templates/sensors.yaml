@@ -8,8 +8,8 @@ spec:
   template:
     serviceAccountName: argo-events-sa
   dependencies:
-  - name: github
-    eventSourceName: github
+  - name: event-cron-devops-demo
+    eventSourceName: event-cron-devops-demo
     eventName: event-source-devops-demo
   triggers:
   - template:
@@ -36,16 +36,6 @@ spec:
                   items:
                     - key: .dockerconfigjson
                       path: config.json
-              - name: github-access
-                secret:
-                  secretName: github-access
-                  items:
-                    - key: token
-                      path: token
-                    - key: user
-                      path: user
-                    - key: email
-                      path: email
               templates:
               - name: build
                 dag:
