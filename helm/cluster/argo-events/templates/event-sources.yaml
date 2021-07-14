@@ -4,7 +4,7 @@ metadata:
   name: event-cron-devops-demo
 spec:
   calendar:
-    example-with-interval:
+    event-source-devops-demo:
       # creates an event every 90 seconds
       interval: 90s
 
