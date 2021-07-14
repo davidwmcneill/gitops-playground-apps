@@ -19,3 +19,12 @@ applications:
 
   argo-workflows:
     enabled: true
+
+  argo-events:
+    enabled: true
+
+  argo-rollouts:
+    enabled: true
+
+  sealed-secrets:
+    enabled: true
