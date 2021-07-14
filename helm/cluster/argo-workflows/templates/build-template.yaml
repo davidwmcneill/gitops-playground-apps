@@ -11,7 +11,7 @@ spec:
     container:
       image: docker/whalesay
       command: [cowsay]
-      args: ["{{inputs.parameters.message}}"]
+      args: ["{{`{{inputs.parameters.message}}`}}"]
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
