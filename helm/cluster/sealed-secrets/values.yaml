@@ -1,3 +1,5 @@
 # https://github.com/bitnami-labs/sealed-secrets/blob/main/helm/sealed-secrets/values.yaml
 
-sealed-secrets: {}
+sealed-secrets:
+  controller:
+    create: true
