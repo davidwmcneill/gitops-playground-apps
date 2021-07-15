@@ -57,7 +57,7 @@ spec:
         - name: container_image
           value: davidwmcneill/gitops-hugo
         - name: container_tag
-          vale: v1
+          value: v1
     container:
       image: gcr.io/kaniko-project/executor:debug
       args:
