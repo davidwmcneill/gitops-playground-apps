@@ -49,7 +49,7 @@ spec:
     inputs:
       parameters:
         - name: repo_url
-          value: davidwmcneill/gitops-hugo
+          value: https://github.com/davidwmcneill/gitops-hugo/
         - name: repo_ref
           value: refs/heads/master
         - name: repo_commit_id
