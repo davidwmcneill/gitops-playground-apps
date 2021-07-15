@@ -81,7 +81,7 @@ spec:
               - name: build
                 dag:
                   tasks:
-                  - name: build
+                  - name: build-ci
                     templateRef:
                       name: container-image
                       template: build-kaniko-git
