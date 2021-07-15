@@ -1,7 +1,7 @@
 
 envVars: {}
 image:
-  repository: "dockerhub/davidwmcneill"
+  repository: "dockerhub/davidwmcneill/gitops-hugo"
   tag: "latest"
 
 revisionHistoryLimit: 3
