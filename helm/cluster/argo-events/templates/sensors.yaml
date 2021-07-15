@@ -98,6 +98,13 @@ spec:
                         value: davidwmcneill/
                       - name: container_tag
                         value: ""
+              - name: test
+                script:
+                  image: alpine
+                  command: [sh]
+                  source: |
+                    echo This is a testing simulation...
+                    sleep 5
         parameters:
         - src:
             dependencyName: github
