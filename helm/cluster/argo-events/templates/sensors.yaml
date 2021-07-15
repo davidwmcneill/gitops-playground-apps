@@ -49,9 +49,9 @@ spec:
   template:
     serviceAccountName: argo-events-sa
   dependencies:
-  - name: event-cron-devops-demo
-    eventSourceName: event-cron-devops-demo
-    eventName: event-source-devops-demo
+  - name: payload
+    eventSourceName: demo-build-webhook
+    eventName: demo-build-webhook
   triggers:
   - template:
       name: trigger
