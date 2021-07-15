@@ -49,12 +49,15 @@ spec:
     inputs:
       parameters:
         - name: repo_url
+          value: davidwmcneill/gitops-hugo
         - name: repo_ref
           value: refs/heads/master
         - name: repo_commit_id
           value: HEAD
         - name: container_image
+          value: davidwmcneill/gitops-hugo
         - name: container_tag
+          vale: v1
     container:
       image: gcr.io/kaniko-project/executor:debug
       args:
