@@ -3,3 +3,6 @@
 sealed-secrets:
   controller:
     create: true
+  commandArgs:
+    - "--update-status"
+    
