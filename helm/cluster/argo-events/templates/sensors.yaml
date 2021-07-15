@@ -68,7 +68,7 @@ spec:
               generateName: gitops-demo-workflow-
               namespace: workflows
             spec:
-              entrypoint: build
+              entrypoint: build-ci
               serviceAccountName: argo-workflow
               volumes:
               - name: regcred
