@@ -3,10 +3,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Sensor
 metadata:
-  name: webhook
+  name: cron-trigger
 spec:
   template:
-    serviceAccountName: argo-events-sa
+    serviceAccountName: argo-workflow
   dependencies:
   - name: event-cron-devops-demo
     eventSourceName: event-cron-devops-demo
@@ -28,7 +28,7 @@ spec:
               namespace: workflows
             spec:
               entrypoint: build
-              serviceAccountName: workflow
+              serviceAccountName: argo-workflow
               volumes:
               - name: regcred
                 secret:
