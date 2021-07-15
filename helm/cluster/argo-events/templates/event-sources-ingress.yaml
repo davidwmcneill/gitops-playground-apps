@@ -11,7 +11,7 @@ spec:
         paths:
           - backend:
               service:
-                name: demo-build-webhook-eventsource-svc
+                name: webhook-eventsource-svc
                 port:
                   number: 8080
             path: /demo-build-webhook
