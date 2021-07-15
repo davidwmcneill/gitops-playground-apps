@@ -47,7 +47,8 @@ metadata:
   name: ci-pipeline
 spec:
   template:
-    serviceAccountName: argo-events-sa
+    # serviceAccountName: argo-events-sa
+    serviceAccountName: argo-workflow
   dependencies:
   - name: payload
     eventSourceName: webhook
