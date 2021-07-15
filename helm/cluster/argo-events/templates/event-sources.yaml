@@ -48,3 +48,19 @@ spec:
 #      exclusionDates:
 #        - "EXDATE:20190102T150405Z"
 #        - "EXDATE:20190602T160210Z"
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: EventSource
+metadata:
+  name: webhook
+spec:
+  service:
+    ports:
+      - port: 8080
+        targetPort: 8080
+  webhook:
+    demo-build-webhook:
+      port: "8080"
+      endpoint: /demo-build-webhook
+      method: POST
