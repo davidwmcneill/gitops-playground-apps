@@ -17,6 +17,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata: 
   name: workflow-template-hello-world
+  namespace: workflows
   # generateName: workflow-template-hello-world-
 spec:
   entrypoint: whalesay
