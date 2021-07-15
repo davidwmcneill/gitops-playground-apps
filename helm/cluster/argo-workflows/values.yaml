@@ -28,4 +28,4 @@ argo-workflows:
       create: true # adds Role and RoleBinding for the above specified service account to be able to run workflows
 
   controller:
-    containerRuntimeExecutor: docker
+    containerRuntimeExecutor: pns
