@@ -6,7 +6,7 @@ metadata:
   name: cron-trigger
 spec:
   template:
-    serviceAccountName: argo-workflow
+    serviceAccountName: argo-events-sa
   dependencies:
   - name: event-cron-devops-demo
     eventSourceName: event-cron-devops-demo
