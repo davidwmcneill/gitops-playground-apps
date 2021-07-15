@@ -1,5 +1,6 @@
-# https://github.com/bitnami/charts/blob/master/bitnami/metrics-server/values.yaml
+# https://github.com/argoproj/argo-helm/blob/master/charts/argo-events/values.yaml
 
 argo-events:
   additionalSaNamespaces:
     - workflows
+  singleNamespace: false
