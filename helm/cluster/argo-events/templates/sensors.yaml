@@ -78,10 +78,10 @@ spec:
                     - key: .dockerconfigjson
                       path: config.json
               templates:
-              - name: build
+              - name: build-ci
                 dag:
                   tasks:
-                  - name: build-ci
+                  - name: build
                     templateRef:
                       name: container-image
                       template: build-kaniko-git-test
