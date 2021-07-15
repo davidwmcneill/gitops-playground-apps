@@ -28,3 +28,6 @@ applications:
 
   sealed-secrets:
     enabled: true
+
+  gitops-hugo:
+    enabled: true

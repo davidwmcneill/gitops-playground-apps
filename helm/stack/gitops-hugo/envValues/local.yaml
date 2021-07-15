@@ -1,0 +1,6 @@
+
+envName: local
+autoscaling:
+  enabled: false
+
+envVars: {}

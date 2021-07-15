@@ -26,7 +26,7 @@ default:
           - envValues/{{ $.Values.envName }}.yaml
     ignoreDifferences: null
 #--------------------------------------------------------------
-# INFRA APPLICATIONS
+# CLUSTER APPLICATIONS
 #--------------------------------------------------------------
 applications:
   argo-workflows:
@@ -68,3 +68,15 @@ applications:
     project: playground-project
     source:
       path: helm/cluster/argo-rollouts
+
+#--------------------------------------------------------------
+# STACK APPLICATIONS
+#--------------------------------------------------------------
+
+  gitops-hugo:
+    enabled: false
+    destination:
+      namespace: app-frontend
+    project: playground-project
+    source:
+      path: helm/stack/gitops-hugo
