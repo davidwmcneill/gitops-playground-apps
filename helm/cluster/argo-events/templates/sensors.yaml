@@ -84,7 +84,7 @@ spec:
                   - name: build
                     templateRef:
                       name: container-image
-                      template: build-kaniko-git-test
+                      template: build-kaniko-git
                       clusterScope: true
               - name: test
                 script:
