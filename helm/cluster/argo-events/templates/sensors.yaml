@@ -84,7 +84,7 @@ spec:
                   - name: build-ci
                     templateRef:
                       name: container-image
-                      template: build-kaniko-git
+                      template: build-kaniko-git-test
                       clusterScope: true
                     arguments:
                       parameters:
