@@ -1,2 +1,25 @@
 # https://github.com/kubernetes/ingress-nginx/blob/master/charts/ingress-nginx/values.yaml
-ingress-nginx: {}
+ingress-nginx:
+  controller:
+    metrics:
+      port: 10254
+      # if this port is changed, change healthz-port: in extraArgs: accordingly
+      enabled: true
+
+      # service:
+      #   annotations:
+      #     prometheus.io/scrape: "true"
+      #     prometheus.io/port: "10254"
+
+      serviceMonitor:
+        enabled: true
+        additionalLabels:
+          release: kube-prometheus-stack
+        namespace: "monitoring"
+        #namespaceSelector: {}
+        # Default: scrape .Release.Namespace only
+        # To scrape all, use the following:
+        # namespaceSelector:
+        #   any: true
+        scrapeInterval: 30s
+        # honorLabels: true
