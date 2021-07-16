@@ -47,4 +47,4 @@ kube-prometheus-stack:
 
     prometheusSpec:
       routePrefix: /prom
-      baseURL: http://localhost:8080
+    baseURL: http://localhost:8080
