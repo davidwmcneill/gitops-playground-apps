@@ -3,4 +3,19 @@
 argo-events:
   additionalSaNamespaces:
     - workflows
+  additionalServiceAccountRules:
+  - apiGroups:
+      - argoproj.io
+    resources:
+      - clusterworkflowtemplates
+      - clusterworkflowtemplates/finalizers
+    verbs:
+      - create
+      - delete
+      - deletecollection
+      - get
+      - list
+      - patch
+      - update
+      - watch
   singleNamespace: false
