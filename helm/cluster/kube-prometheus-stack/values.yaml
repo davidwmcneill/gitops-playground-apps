@@ -37,7 +37,7 @@ kube-prometheus-stack:
       annotations: {}
       labels: {}
       hosts: []
-
+      pathType: Prefix
       ## Paths to use for ingress rules - one path should match the prometheusSpec.routePrefix
       ##
       paths: 
