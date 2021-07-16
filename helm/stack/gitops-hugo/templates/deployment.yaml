@@ -130,7 +130,7 @@ spec:
       prometheus:
         address: http://prometheus-server.monitoring
         query: |
-          sum(irate(
+          {{`sum(irate(
             istio_requests_total{  
               reporter="source",
               destination_service=~"{{args.service-name}}",
@@ -141,7 +141,7 @@ spec:
               reporter="source",
               destination_service=~"{{args.service-name}}"
             }[2m]
-          ))
+          ))`}}
   - name: avg-req-duration
     interval: 10s
     successCondition: result[0] <= 1000

@@ -1,9 +1,1 @@
-kube-prometheus-stack:
-  prometheus:
-    ingress:
-      hosts:
-      - prometheus.dev.smartfocus.org
-    prometheusSpec:
-      externalLabels:
-        cluster: euw1-k8s-dev.smartfocus.org
-        environment: dev
+kube-prometheus-stack: {}
