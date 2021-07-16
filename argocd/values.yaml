@@ -69,6 +69,14 @@ applications:
     source:
       path: helm/cluster/argo-rollouts
 
+  kube-prometheus-stack:
+    enabled: false
+    destination:
+      namespace: argo
+    project: playground-project
+    source:
+      path: helm/cluster/kube-prometheus-stack
+
 #--------------------------------------------------------------
 # STACK APPLICATIONS
 #--------------------------------------------------------------

@@ -1,6 +1,6 @@
 {{- $fullName := include "fullname" . -}}
 apiVersion: apps/v1
-kind: Deployment
+kind: Rollout
 metadata:
   name: {{ include "fullname" . }}
   labels:
@@ -91,3 +91,75 @@ spec:
             timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
             failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
 {{- end }}
+  strategy:
+    canary:
+      canaryService: {{ .Release.Service }}-canary
+      stableService: {{ .Release.Service }}
+      steps:
+      - setWeight: 10
+      - pause: {duration: 2m}
+      - setWeight: 30
+      - pause: {duration: 30s}
+      - setWeight: 50
+      - pause: {duration: 30s}
+      analysis:
+        templates:
+        - templateName: {{ include "fullname" . }}
+        startingStep: 2
+        args:
+        - name: service-name
+          value: {{ include "fullname" . }}.svc.cluster.local
+
+---
+# https://argoproj.github.io/argo-rollouts/features/analysis/
+
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: {{ include "fullname" . }}
+spec:
+  args:
+  - name: service-name
+  metrics:
+  - name: success-rate
+    interval: 10s
+    successCondition: result[0] >= 0.8
+    failureCondition: result[0] < 0.8
+    failureLimit: 3
+    provider:
+      prometheus:
+        address: http://prometheus-server.monitoring
+        query: |
+          sum(irate(
+            istio_requests_total{  
+              reporter="source",
+              destination_service=~"{{args.service-name}}",
+              response_code=~"2.*"
+            }[2m]
+          )) / sum(irate(
+            istio_requests_total{
+              reporter="source",
+              destination_service=~"{{args.service-name}}"
+            }[2m]
+          ))
+  - name: avg-req-duration
+    interval: 10s
+    successCondition: result[0] <= 1000
+    failureCondition: result[0] > 1000
+    failureLimit: 3
+    provider:
+      prometheus:
+        address: http://prometheus-server.monitoring
+        query: |
+          sum(irate(
+            istio_request_duration_milliseconds_sum{
+              reporter="source",
+              destination_service=~"{{args.service-name}}"
+            }[2m]
+          )) / sum(irate(
+            istio_request_duration_milliseconds_count{
+              reporter="source",
+              destination_service=~"{{args.service-name}}"
+            }[2m]
+          ))
+      

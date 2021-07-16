@@ -31,3 +31,6 @@ applications:
 
   gitops-hugo:
     enabled: true
+
+  kube-prometheus-stack:
+    enabled: true
