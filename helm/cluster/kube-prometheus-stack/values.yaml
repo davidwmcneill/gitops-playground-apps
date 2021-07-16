@@ -2,33 +2,18 @@
 
 kube-prometheus-stack:
   grafana:
-    enabled: true
-    namespaceOverride: ""
-
-    ## ForceDeployDatasources Create datasource configmap even if grafana deployment has been disabled
-    ##
-    forceDeployDatasources: false
-
-    ## ForceDeployDashboard Create dashboard configmap even if grafana deployment has been disabled
-    ##
-    forceDeployDashboards: false
-
-    ## Deploy default dashboards.
-    ##
-    defaultDashboardsEnabled: true
-
-    adminPassword: prom-operator
-
     ingress:
       enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "nginx"
+        nginx.ingress.kubernetes.io/rewrite-target: /$1
+        nginx.ingress.kubernetes.io/use-regex: "true"
 
-      annotations: {}
-        # kubernetes.io/ingress.class: nginx
-        # kubernetes.io/tls-acme: "true"
-      labels: {}
+      path: /grafana/?(.*)
       hosts: []
-      path: /grafana
-      tls: []
+    grafana.ini:
+      server:
+        root_url: http://localhost:8080/grafana
 
 
   prometheus:
