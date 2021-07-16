@@ -72,7 +72,7 @@ applications:
   kube-prometheus-stack:
     enabled: false
     destination:
-      namespace: argo
+      namespace: monitoring
     project: playground-project
     source:
       path: helm/cluster/kube-prometheus-stack
