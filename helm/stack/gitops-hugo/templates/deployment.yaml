@@ -151,7 +151,7 @@ spec:
       prometheus:
         address: http://prometheus-server.monitoring
         query: |
-          sum(irate(
+          {{`sum(irate(
             istio_request_duration_milliseconds_sum{
               reporter="source",
               destination_service=~"{{args.service-name}}"
@@ -161,6 +161,6 @@ spec:
               reporter="source",
               destination_service=~"{{args.service-name}}"
             }[2m]
-          ))
+          ))`}}
       
 
