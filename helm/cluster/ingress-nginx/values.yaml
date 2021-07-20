@@ -25,3 +25,6 @@ ingress-nginx:
         # honorLabels: true
 
 
+    ingressClassResource:
+      enabled: true
+      default: true
