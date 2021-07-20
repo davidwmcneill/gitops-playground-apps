@@ -138,6 +138,6 @@ spec:
     failureLimit: 3
     provider:
       prometheus:
-        address: http://prometheus-server.monitoring
+        address: http://kube-prometheus-stack-prometheus.monitoring:9090/prometheus
         query: |
           {{`sum(irate(nginx_ingress_controller_request_duration_seconds_sum{ exported_service="{{args.service-name}}"}[2m])) / sum(irate(nginx_ingress_controller_request_duration_seconds_count{ exported_service="{{args.service-name}}"}[2m]))`}}
