@@ -93,8 +93,8 @@ spec:
 {{- end }}
   strategy:
     canary:
-      canaryService: {{ .Release.Service }}-canary
-      stableService: {{ .Release.Service }}
+      canaryService: {{ include "fullname" . }}-canary
+      stableService: {{ include "fullname" . }}
       steps:
       - setWeight: 10
       - pause: {duration: 2m}
