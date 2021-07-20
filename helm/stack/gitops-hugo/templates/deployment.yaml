@@ -108,7 +108,7 @@ spec:
         startingStep: 2
         args:
         - name: service-name
-          value: {{ include "fullname" . }}.svc.cluster.local
+          value: {{ include "fullname" . }}
 
 ---
 # https://argoproj.github.io/argo-rollouts/features/analysis/
