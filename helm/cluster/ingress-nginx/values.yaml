@@ -23,6 +23,3 @@ ingress-nginx:
         #   any: true
         scrapeInterval: 30s
         # honorLabels: true
-
-    config:
-      metrics-per-host: false
