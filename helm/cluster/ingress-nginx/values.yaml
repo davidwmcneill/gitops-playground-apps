@@ -24,7 +24,5 @@ ingress-nginx:
         scrapeInterval: 30s
         # honorLabels: true
 
-
-    ingressClassResource:
-      enabled: true
-      default: true
+    config:
+      metrics-per-host: false
