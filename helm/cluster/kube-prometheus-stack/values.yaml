@@ -1,5 +1,6 @@
 # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
 
+# Default username/pw = admin/prom-operator
 kube-prometheus-stack:
   grafana:
     ingress:
@@ -10,7 +11,6 @@ kube-prometheus-stack:
         nginx.ingress.kubernetes.io/use-regex: "true"
 
       path: /grafana/?(.*)
-      hosts: []
     grafana.ini:
       server:
         root_url: http://localhost:8080/grafana
@@ -26,9 +26,9 @@ kube-prometheus-stack:
       ## Paths to use for ingress rules - one path should match the prometheusSpec.routePrefix
       ##
       paths: 
-      - /prom
+      - /prometheus
 
       tls: []
 
     prometheusSpec:
-      routePrefix: /prom
+      routePrefix: /prometheus
