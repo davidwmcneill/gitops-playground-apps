@@ -1,0 +1,34 @@
+# https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
+
+# Default username/pw = admin/prom-operator
+kube-prometheus-stack:
+  grafana:
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "nginx"
+        nginx.ingress.kubernetes.io/rewrite-target: /$1
+        nginx.ingress.kubernetes.io/use-regex: "true"
+
+      path: /grafana/?(.*)
+    grafana.ini:
+      server:
+        root_url: http://localhost:8080/grafana
+
+
+  prometheus:
+    ingress:
+      enabled: true
+      annotations: {}
+      labels: {}
+      hosts: []
+      pathType: Prefix
+      ## Paths to use for ingress rules - one path should match the prometheusSpec.routePrefix
+      ##
+      paths: 
+      - /prometheus
+
+      tls: []
+
+    prometheusSpec:
+      routePrefix: /prometheus

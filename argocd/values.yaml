@@ -26,7 +26,7 @@ default:
           - envValues/{{ $.Values.envName }}.yaml
     ignoreDifferences: null
 #--------------------------------------------------------------
-# INFRA APPLICATIONS
+# CLUSTER APPLICATIONS
 #--------------------------------------------------------------
 applications:
   argo-workflows:
@@ -44,3 +44,47 @@ applications:
     project: playground-project
     source:
       path: helm/cluster/ingress-nginx
+
+  sealed-secrets:
+    enabled: false
+    destination:
+      namespace: kube-system
+    project: playground-project
+    source:
+      path: helm/cluster/sealed-secrets
+
+  argo-events:
+    enabled: false
+    destination:
+      namespace: argo
+    project: playground-project
+    source:
+      path: helm/cluster/argo-events
+
+  argo-rollouts:
+    enabled: false
+    destination:
+      namespace: argo
+    project: playground-project
+    source:
+      path: helm/cluster/argo-rollouts
+
+  kube-prometheus-stack:
+    enabled: false
+    destination:
+      namespace: monitoring
+    project: playground-project
+    source:
+      path: helm/cluster/kube-prometheus-stack
+
+#--------------------------------------------------------------
+# STACK APPLICATIONS
+#--------------------------------------------------------------
+
+  gitops-hugo:
+    enabled: false
+    destination:
+      namespace: app-frontend
+    project: playground-project
+    source:
+      path: helm/stack/gitops-hugo

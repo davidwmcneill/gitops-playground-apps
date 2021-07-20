@@ -1,0 +1,69 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ClusterWorkflowTemplate
+metadata:
+  name: cluster-workflow-template-whalesay-template
+  namespace: workflows
+spec:
+  templates:
+  - name: whalesay-template
+    inputs:
+      parameters:
+      - name: message
+    container:
+      image: docker/whalesay
+      command: [cowsay]
+      args: ["{{`{{inputs.parameters.message}}`}}"]
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata: 
+  name: workflow-template-hello-world
+  namespace: workflows
+  # generateName: workflow-template-hello-world-
+spec:
+  serviceAccountName: argo-workflow
+  entrypoint: whalesay
+  templates:
+  - name: whalesay
+    steps:                              # You should only reference external "templates" in a "steps" or "dag" "template".
+      - - name: call-whalesay-template
+          templateRef:                  # You can reference a "template" from another "WorkflowTemplate or ClusterWorkflowTemplate" using this field
+            name: cluster-workflow-template-whalesay-template   # This is the name of the "WorkflowTemplate or ClusterWorkflowTemplate" CRD that contains the "template" you want
+            template: whalesay-template # This is the name of the "template" you want to reference
+            clusterScope: true          # This field indicates this templateRef is pointing ClusterWorkflowTemplate
+          arguments:                    # You can pass in arguments as normal
+            parameters:
+            - name: message
+              value: "hello world"
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ClusterWorkflowTemplate
+metadata:
+  name: container-image
+  namespace: workflows
+spec:
+  serviceAccountName: argo-workflow
+  templates:
+  - name: build-kaniko-git
+    inputs:
+      parameters:
+        - name: repo_url
+          value: git://github.com/davidwmcneill/gitops-hugo.git
+        - name: repo_ref
+          value: refs/heads/master
+        - name: repo_commit_id
+          value: HEAD
+        - name: container_image
+          value: davidwmcneill/gitops-hugo
+        - name: container_tag
+          value: v1
+    container:
+      image: gcr.io/kaniko-project/executor:debug
+      args:
+      - --context={{`{{inputs.parameters.repo_url}}`}}#{{`{{inputs.parameters.repo_ref}}`}} #{{`{{inputs.parameters.repo_commit_id}}`}}
+      - --destination={{`{{inputs.parameters.container_image}}`}}:latest
+      - --destination={{`{{inputs.parameters.container_image}}`}}:{{`{{workflow.uid}}`}}
+      volumeMounts:
+        - name: regcred
+          mountPath: /kaniko/.docker/

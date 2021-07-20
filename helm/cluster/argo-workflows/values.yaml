@@ -17,3 +17,15 @@ argo-workflows:
       paths:
         - /argo(/|$)(.*)
       https: false
+
+  workflow:
+    namespace: "workflows" # Specify namespace if workflows run in another namespace than argo. This controls where the service account and RBAC resources will be created.
+    serviceAccount:
+      create: true # Specifies whether a service account should be created
+      annotations: {}
+      name: "argo-workflow" # Service account which is used to run workflows
+    rbac:
+      create: true # adds Role and RoleBinding for the above specified service account to be able to run workflows
+
+  controller:
+    containerRuntimeExecutor: pns
