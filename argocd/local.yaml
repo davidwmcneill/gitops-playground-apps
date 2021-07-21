@@ -37,3 +37,5 @@ applications:
 
   argo-image-updater:
     enabled: true
+    source:
+      path: helm/cluster/argo-image-updater/overlays/local
