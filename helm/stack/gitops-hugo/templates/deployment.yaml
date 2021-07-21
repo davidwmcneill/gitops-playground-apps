@@ -93,8 +93,8 @@ spec:
 {{- end }}
   strategy:
     canary:
-      canaryService: {{ .Release.Service }}-canary
-      stableService: {{ .Release.Service }}
+      canaryService: {{ include "fullname" . }}-canary
+      stableService: {{ include "fullname" . }}
       steps:
       - setWeight: 10
       - pause: {duration: 2m}
@@ -108,7 +108,7 @@ spec:
         startingStep: 2
         args:
         - name: service-name
-          value: {{ include "fullname" . }}.svc.cluster.local
+          value: {{ include "fullname" . }}
 
 ---
 # https://argoproj.github.io/argo-rollouts/features/analysis/
@@ -128,20 +128,9 @@ spec:
     failureLimit: 3
     provider:
       prometheus:
-        address: http://prometheus-server.monitoring
+        address: http://kube-prometheus-stack-prometheus.monitoring:9090/prometheus
         query: |
-          {{`sum(irate(
-            istio_requests_total{  
-              reporter="source",
-              destination_service=~"{{args.service-name}}",
-              response_code=~"2.*"
-            }[2m]
-          )) / sum(irate(
-            istio_requests_total{
-              reporter="source",
-              destination_service=~"{{args.service-name}}"
-            }[2m]
-          ))`}}
+          {{`sum(irate(nginx_ingress_controller_requests{ exported_service="{{args.service-name}}",status=~"2.*"}[2m])) / sum(irate(nginx_ingress_controller_requests{ exported_service="{{args.service-name}}"}[2m]))`}}
   - name: avg-req-duration
     interval: 10s
     successCondition: result[0] <= 1000
@@ -149,18 +138,6 @@ spec:
     failureLimit: 3
     provider:
       prometheus:
-        address: http://prometheus-server.monitoring
+        address: http://kube-prometheus-stack-prometheus.monitoring:9090/prometheus
         query: |
-          sum(irate(
-            istio_request_duration_milliseconds_sum{
-              reporter="source",
-              destination_service=~"{{args.service-name}}"
-            }[2m]
-          )) / sum(irate(
-            istio_request_duration_milliseconds_count{
-              reporter="source",
-              destination_service=~"{{args.service-name}}"
-            }[2m]
-          ))
-      
-
+          {{`sum(irate(nginx_ingress_controller_request_duration_seconds_sum{ exported_service="{{args.service-name}}"}[2m])) / sum(irate(nginx_ingress_controller_request_duration_seconds_count{ exported_service="{{args.service-name}}"}[2m]))`}}

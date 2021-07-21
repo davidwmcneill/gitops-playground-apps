@@ -1,2 +1,6 @@
 ingress-nginx:
   envName: local
+
+  controller:
+    extraArgs:
+      metrics-per-host: false # When using locally without a host on the ingress
