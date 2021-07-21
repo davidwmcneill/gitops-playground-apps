@@ -1,0 +1,2 @@
+bases:  
+- github.com/argoproj-labs/argocd-image-updater/manifests/base?ref=v0.9.5

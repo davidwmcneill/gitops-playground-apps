@@ -34,3 +34,6 @@ applications:
 
   kube-prometheus-stack:
     enabled: true
+
+  argo-image-updater:
+    enabled: true
