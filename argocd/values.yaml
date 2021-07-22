@@ -69,6 +69,12 @@ applications:
     project: playground-project
     source:
       path: helm/cluster/argo-rollouts
+    ignoreDifferences: |
+      ignoreDifferences:
+        - group: apiextensions.k8s.io
+          jsonPointers:
+            - /spec/preserveUnknownFields
+          kind: CustomResourceDefinition
 
   kube-prometheus-stack:
     enabled: false
