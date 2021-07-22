@@ -5,6 +5,7 @@ envName: null
 projectOverride: null
 default:
   app:
+    annotations: {}
     enableFinalizer: null
     enableAutoSync: null
     autoSyncPrune: null
@@ -91,6 +92,11 @@ applications:
 
   gitops-hugo:
     enabled: false
+    annotations:
+      argocd-image-updater.argoproj.io/image-list: davidwmcneill/gitops-hugo
+      argocd-image-updater.argoproj.io/write-back-method: argocd
+      argocd-image-updater.argoproj.io/image-list: myapp=davidwmcneill/gitops-hugo
+      argocd-image-updater.argoproj.io/myapp.update-strategy: latest
     destination:
       namespace: app-frontend
     project: playground-project

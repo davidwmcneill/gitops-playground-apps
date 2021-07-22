@@ -5,6 +5,10 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: {{ required "A valid envName is required" $.Values.envName }}-{{ $key }}
+  {{- if $val.annotations }}
+  annotations:
+{{ toYaml $val.annotations | indent 2 }}
+  {{- end }}
   labels:
     environment: {{ $.Values.envName }}
     app: {{ $key }}
