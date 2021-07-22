@@ -7,7 +7,7 @@ metadata:
   name: {{ required "A valid envName is required" $.Values.envName }}-{{ $key }}
   {{- if $val.annotations }}
   annotations:
-{{ toYaml $val.annotations | indent 2 }}
+{{ toYaml $val.annotations | indent 4 }}
   {{- end }}
   labels:
     environment: {{ $.Values.envName }}
