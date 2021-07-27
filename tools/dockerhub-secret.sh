@@ -30,4 +30,4 @@ echo -n $keyvar | kubeseal --cert ssCert.pem --raw --scope namespace-wide --from
 # kubectl replace --force -f sealed-dockercreds.yaml
 
 # # clean up
-# rm dockercreds.yaml ssCert.pem
+rm ssCert.pem
