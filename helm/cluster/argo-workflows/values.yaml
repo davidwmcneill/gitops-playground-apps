@@ -1,5 +1,6 @@
 # https://github.com/bitnami/charts/blob/master/bitnami/metrics-server/values.yaml
 
+encryptedRegCred: {}
 argo-workflows:
   init:
     # By default the installation will not set an explicit one, which will mean it uses `default` for the namespace the chart is
