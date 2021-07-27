@@ -20,7 +20,7 @@ kubeseal --controller-name=sealed-secrets  --controller-namespace=kube-system  -
 
 # create git safe value for helm chart
 echo 'set value in argo-workflows'
-echo -n $keyvar | kubeseal --cert ssCert.pem --raw --scope namespace-wide --from-file=/dev/stdin
+echo -n $keyvar | kubeseal --cert ssCert.pem --raw --namespace workflows --name regcred --scope strict --from-file=/dev/stdin
 
 
 # # use kubeseal to seal the secert so that it can be stored in git
