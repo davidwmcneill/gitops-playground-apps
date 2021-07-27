@@ -11,6 +11,20 @@ fi
 
 echo 'create an api key on dockerhub for use with argo workflows'
 read -p 'Docker API key: ' keyvar
+read -p 'Username: ' uservar
+
+creds=$(echo -n $uservar:$keyvar | base64)
+
+dockerauth=$(cat <<EOF
+    {
+    	"auths": {
+	    	"https://index.docker.io/v1/": {
+	    		"auth": "$creds"
+    		}
+    	}
+    }
+EOF
+)
 
 # # create a standard secret ready to seal
 # echo -n $keyvar | kubectl create secret generic regcred --dry-run=client --from-file=.dockerconfigjson=/dev/stdin -o yaml >dockercreds.yaml
@@ -19,8 +33,8 @@ read -p 'Docker API key: ' keyvar
 kubeseal --controller-name=sealed-secrets  --controller-namespace=kube-system  --fetch-cert >ssCert.pem
 
 # create git safe value for helm chart
-echo 'set value in argo-workflows'
-echo -n $keyvar | kubeseal --cert ssCert.pem --raw --namespace workflows --name regcred --scope strict --from-file=/dev/stdin
+echo 'set in argo-workflows env values:'
+echo -n $dockerauth | kubeseal --cert ssCert.pem --raw --namespace workflows --name regcred --scope strict --from-file=/dev/stdin
 
 
 # # use kubeseal to seal the secert so that it can be stored in git
