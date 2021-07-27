@@ -54,6 +54,8 @@ spec:
 {{- toYaml .Values.tolerations | nindent 8 }}
     {{- end }}
       serviceAccountName: {{ include "fullname" . }}
+      securityContext:
+        runAsUser: 999
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ tpl .Values.image.repository . }}:{{ tpl .Values.image.tag . }}"
@@ -69,6 +71,12 @@ spec:
           - name: http
             containerPort: {{ .Values.containerPort }}
             protocol: TCP
+          securityContext:
+            capabilities:
+              drop:
+                - NET_RAW
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
           resources:
 {{ toYaml .Values.resources | indent 12 }}
 {{- if .Values.livenessProbe.enabled }}

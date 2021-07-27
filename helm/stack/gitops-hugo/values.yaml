@@ -13,7 +13,7 @@ autoscaling:
   targetCPUUtilizationPercentage: 50
   targetMemoryUtilizationPercentage: 90
 
-containerPort: 80
+containerPort: 8080
 podAnnotations: {}
 affinity: {}
 nodeSelector: {}
