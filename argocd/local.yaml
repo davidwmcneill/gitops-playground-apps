@@ -31,6 +31,10 @@ applications:
 
   kube-prometheus-stack:
     enabled: true
+    # Auto sync need for nginx dependency
+    enableAutoSync: true
+    autoSyncPrune: true
+    autoSyncSelfHeal: true
 
   argo-image-updater:
     enabled: true
