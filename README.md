@@ -7,6 +7,9 @@ Only the base applications are configured to auto-sync, so as to give the user t
 
 The idea could be that a developer wants to work locally on a subset of microservices and doesn't have a requirement to run an entire application stack.
 
+# Requirements
+- [Step](https://smallstep.com/cli/) (Optional. Only if using Linkerd)
+
 # Environments
 The template works on a branching strategy whereby each environment can be developed and merged upstream, with main/master being the production environment.
 `env2` is used as a placeholder for this, but primarily for the playground aspect `local` is used.

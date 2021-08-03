@@ -3,6 +3,6 @@ name: linkerd
 version: 0.1.0
 
 dependencies:
-- name: linkerd
-  version: 0.1.0
+- name: linkerd2
+  version: 2.10.2
   repository: https://helm.linkerd.io/stable
