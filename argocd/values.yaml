@@ -92,6 +92,22 @@ applications:
     project: playground-project
     source:
       path: helm/cluster/argo-image-updater
+
+  linkerd:
+    enabled: false
+    destination:
+      namespace: linkerd
+    project: playground-project
+    source:
+      path: helm/cluster/linkerd
+
+  cert-manager:
+    enabled: false
+    destination:
+      namespace: cert-manager
+    project: playground-project
+    source:
+      path: helm/cluster/cert-manager
 #--------------------------------------------------------------
 # STACK APPLICATIONS
 #--------------------------------------------------------------

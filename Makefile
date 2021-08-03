@@ -10,6 +10,13 @@ githook:
 traffic:
 	while true; do curl "$(K3D_LOCAL_URL)/gitops-hugo"; sleep 1; done
 
+dockerhub-secret:
+	./tools/dockerhub-secret.sh
+linkerd-secret:
+	./tools/linkerd-secret.sh
+# linkerd-cert:
+# 	step certificate create root.linkerd.cluster.local ca.crt ca.key --profile root-ca --no-password --insecure
+# 	step certificate create identity.linkerd.cluster.local issuer.crt issuer.key --profile intermediate-ca --not-after 8760h --no-password --insecure --ca ca.crt --ca-key ca.key
 url_argo:
 	open $(K3D_LOCAL_URL)/argo
 

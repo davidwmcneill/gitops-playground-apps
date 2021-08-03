@@ -1,0 +1,12 @@
+# https://linkerd.io/2.10/tasks/gitops/
+# https://github.com/linkerd/linkerd-examples
+# https://github.com/linkerd/linkerd2/blob/main/charts/linkerd2/values.yaml
+
+linkerd:
+
+  identityTrustAnchorsPEM: ca.crt
+  identity:
+    issuer:
+      scheme: "kubernetes.io/tls"
+
+

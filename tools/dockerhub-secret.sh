@@ -36,6 +36,7 @@ kubeseal --controller-name=sealed-secrets  --controller-namespace=kube-system  -
 echo 'set in argo-workflows env values:'
 echo -n $dockerauth | kubeseal --cert ssCert.pem --raw --namespace workflows --name regcred --scope strict --from-file=/dev/stdin
 
+# TODO: inject this directly into the values file?
 
 # # use kubeseal to seal the secert so that it can be stored in git
 # kubeseal --cert ssCert.pem -o yaml -n workflows <dockercreds.yaml >sealed-dockercreds.yaml

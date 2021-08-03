@@ -41,6 +41,11 @@ applications:
     source:
       path: helm/cluster/argo-image-updater/overlays/local
 
+  linkerd:
+      enabled: true 
+
+  cert-manager:
+      enabled: true 
 #--------------------------------------------------------------
 # STACK APPLICATIONS
 #--------------------------------------------------------------
