@@ -3,8 +3,7 @@
 # https://github.com/linkerd/linkerd2/blob/main/charts/linkerd2/values.yaml
 
 linkerd2:
-  global:
-    identityTrustAnchorsPEM: |
+  identityTrustAnchorsPEM: |
           -----BEGIN CERTIFICATE-----
           -----END CERTIFICATE-----
   identity:
