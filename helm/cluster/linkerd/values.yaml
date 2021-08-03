@@ -2,8 +2,7 @@
 # https://github.com/linkerd/linkerd-examples
 # https://github.com/linkerd/linkerd2/blob/main/charts/linkerd2/values.yaml
 
-linkerd:
-
+linkerd2:
   identityTrustAnchorsPEM:  |
           -----BEGIN CERTIFICATE-----
           -----END CERTIFICATE-----
