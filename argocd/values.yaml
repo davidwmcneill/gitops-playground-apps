@@ -139,7 +139,7 @@ applications:
   linkerd-viz:
     enabled: false
     destination:
-      namespace: linkerd
+      namespace: linkerd-viz
     project: playground-project
     source:
       path: helm/cluster/linkerd-viz
