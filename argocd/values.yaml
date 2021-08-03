@@ -100,17 +100,6 @@ applications:
     project: playground-project
     source:
       path: helm/cluster/linkerd
-
-  cert-manager:
-    enabled: false
-    destination:
-      namespace: cert-manager
-    project: playground-project
-    source:
-      path: helm/cluster/cert-manager
-      extraHelmFields: |
-        valueFiles:
-          - envValues/{{ $.Values.envName }}.yaml
     ignoreDifferences: |
       ignoreDifferences:
         - group: ""
@@ -146,6 +135,26 @@ applications:
           name: v1alpha1.tap.linkerd.io
           jsonPointers:
           - /spec/caBundle
+
+  linkerd-viz:
+    enabled: false
+    destination:
+      namespace: linkerd
+    project: playground-project
+    source:
+      path: helm/cluster/linkerd-viz
+
+  cert-manager:
+    enabled: false
+    destination:
+      namespace: cert-manager
+    project: playground-project
+    source:
+      path: helm/cluster/cert-manager
+      extraHelmFields: |
+        valueFiles:
+          - envValues/{{ $.Values.envName }}.yaml
+
 #--------------------------------------------------------------
 # STACK APPLICATIONS
 #--------------------------------------------------------------

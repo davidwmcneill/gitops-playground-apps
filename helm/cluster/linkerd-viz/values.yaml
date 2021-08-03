@@ -1,0 +1,8 @@
+# https://github.com/linkerd/linkerd2/blob/main/viz/charts/linkerd-viz/values.yaml
+
+linkerd-viz:
+  prometheus:
+    # -- toggle field to enable or disable prometheus
+    enabled: false
+
+  prometheusUrl: "http://kube-prometheus-stack-prometheus.monitoring:9090/prometheus"
