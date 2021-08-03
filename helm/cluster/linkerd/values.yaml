@@ -3,8 +3,10 @@
 # https://github.com/linkerd/linkerd2/blob/main/charts/linkerd2/values.yaml
 
 linkerd2:
-
-  identityTrustAnchorsPEM: ca.crt
+  global:
+    identityTrustAnchorsPEM: |
+          -----BEGIN CERTIFICATE-----
+          -----END CERTIFICATE-----
   identity:
     issuer:
       scheme: "kubernetes.io/tls"
