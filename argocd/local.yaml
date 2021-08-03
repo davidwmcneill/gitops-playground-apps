@@ -29,8 +29,31 @@ applications:
   sealed-secrets:
     enabled: true
 
-  gitops-hugo:
-    enabled: true
-
   kube-prometheus-stack:
     enabled: true
+    # Auto sync need for nginx dependency
+    enableAutoSync: true
+    autoSyncPrune: true
+    autoSyncSelfHeal: true
+
+  argo-image-updater:
+    enabled: true
+    source:
+      path: helm/cluster/argo-image-updater/overlays/local
+
+  linkerd:
+    enabled: true 
+
+  linkerd-viz:
+    enabled: true
+
+  cert-manager:
+    enabled: true 
+#--------------------------------------------------------------
+# STACK APPLICATIONS
+#--------------------------------------------------------------
+
+  gitops-hugo:
+    enabled: true
+    enableAutoSync: true
+    
