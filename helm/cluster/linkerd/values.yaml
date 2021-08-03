@@ -4,9 +4,10 @@
 
 linkerd:
 
-  identityTrustAnchorsPEM: ca.crt
+  identityTrustAnchorsPEM:  |
+          -----BEGIN CERTIFICATE-----
+          -----END CERTIFICATE-----
   identity:
     issuer:
       scheme: "kubernetes.io/tls"
-
-
+  installNamespace: false

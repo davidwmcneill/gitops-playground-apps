@@ -108,6 +108,12 @@ applications:
     project: playground-project
     source:
       path: helm/cluster/cert-manager
+      extraHelmFields: |
+        valueFiles:
+          - envValues/{{ $.Values.envName }}.yaml
+        File Parameters:
+          Name:  ca.crt
+          Path:  mayfile
 #--------------------------------------------------------------
 # STACK APPLICATIONS
 #--------------------------------------------------------------
