@@ -2,13 +2,15 @@
 set -e
 
 echo $BASH_VERSION
-CREDS_FILE=~/.dockerhub-api1
+CREDS_FILE=~/.dockerhub-api
 
 # ensure kubeseal is installed
 # if [[ ! $(command -v kubeseal) ]]; then
 #     >&2 echo "kubeseal is required"
 #     exit 1
 # fi
+
+kubectl create namespace workflows --dry-run=client -o yaml | kubectl apply -f -
 
 
 if [ -f "$CREDS_FILE" ]; then
@@ -18,13 +20,11 @@ if [ -f "$CREDS_FILE" ]; then
 		echo "Setting secret for dockerhub user: $uservar"
 		CREDS=$(echo -n $uservar:$keyvar | base64)
 	done < $CREDS_FILE 
-
 else
 	printf 'Create an api key on dockerhub for use with argo workflows \nThis can be stored in a file: ~/.dockerhub-api \nOr entered on the prompt \n'
 	read -p 'Docker API key: ' keyvar
 	read -p 'Username: ' uservar
 	CREDS=$(echo -n $uservar:$keyvar | base64)
-
 fi
 
 DOCKERAUTH=$(cat <<EOF
