@@ -2,7 +2,7 @@
 set -e
 
 echo $BASH_VERSION
-CREDS_FILE=~/.dockerhub-api
+CREDS_FILE=~/.dockerhub-api1
 
 # ensure kubeseal is installed
 # if [[ ! $(command -v kubeseal) ]]; then
@@ -15,12 +15,12 @@ if [ -f "$CREDS_FILE" ]; then
     echo "Found dockerhub creds file"
 	while IFS=":" read uservar keyvar
 	do 
-		echo "Setting securet for user: $uservar"
+		echo "Setting secret for dockerhub user: $uservar"
 		CREDS=$(echo -n $uservar:$keyvar | base64)
 	done < $CREDS_FILE 
 
 else
-	echo 'create an api key on dockerhub for use with argo workflows'
+	printf 'Create an api key on dockerhub for use with argo workflows \nThis can be stored in a file: ~/.dockerhub-api \nOr entered on the prompt \n'
 	read -p 'Docker API key: ' keyvar
 	read -p 'Username: ' uservar
 	CREDS=$(echo -n $uservar:$keyvar | base64)
