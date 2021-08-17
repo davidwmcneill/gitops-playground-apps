@@ -6,3 +6,4 @@ namespace: selenium-grid
 # https://raw.githubusercontent.com/SeleniumHQ/docker-selenium/trunk/k8s-deployment-full-grid.yaml
 resources:
 - k8s-deployment-full-grid.yaml
+- namespace.yaml
