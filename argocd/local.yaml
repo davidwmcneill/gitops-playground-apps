@@ -49,6 +49,11 @@ applications:
 
   cert-manager:
     enabled: true 
+
+  selenium-grid:
+    enabled: true
+    source:
+      path: helm/cluster/selenium-grid/overlays/local
 #--------------------------------------------------------------
 # STACK APPLICATIONS
 #--------------------------------------------------------------

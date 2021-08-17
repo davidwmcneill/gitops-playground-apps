@@ -155,6 +155,15 @@ applications:
         valueFiles:
           - envValues/{{ $.Values.envName }}.yaml
 
+  selenium-grid:
+    enabled: false
+    kustomize: true
+    destination:
+      namespace: argocd
+    project: playground-project
+    source:
+      path: helm/cluster/selenium-grid
+
 #--------------------------------------------------------------
 # STACK APPLICATIONS
 #--------------------------------------------------------------
