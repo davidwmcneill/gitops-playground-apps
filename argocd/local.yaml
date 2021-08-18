@@ -60,5 +60,4 @@ applications:
 
   gitops-hugo:
     enabled: true
-    enableAutoSync: true
     
