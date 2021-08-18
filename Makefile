@@ -21,7 +21,7 @@ url_argo:
 	open $(K3D_LOCAL_URL)/argo
 
 url_prometheus:
-	open $(K3D_LOCAL_URL)/prometheus
+	open $(K3D_LOCAL_URL)/prometheus/graph
 
 url_grafana:
 	open $(K3D_LOCAL_URL)/grafana/login
