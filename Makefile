@@ -8,7 +8,7 @@ githook:
 	curl -X POST -H "Content-Type: application/json" -d '{"message":"build something"}' $(K3D_LOCAL_URL)/demo-build-webhook
 
 traffic:
-	while true; do curl "$(K3D_LOCAL_URL)/gitops-hugo"; sleep 1; done
+	while true; do curl -I "$(K3D_LOCAL_URL)/gitops-hugo"; sleep 1; done
 
 dockerhub-secret:
 	./tools/dockerhub-secret.sh
@@ -31,3 +31,7 @@ url_argocd:
 
 url_hugo:
 	open $(K3D_LOCAL_URL)/gitops-hugo
+
+# kubectl extention for argo-rollouts - https://argoproj.github.io/argo-rollouts/installation/#brew
+watch_rollout:
+	kubectl argo rollouts -n app-frontend get rollout gitops-hugo --watch
