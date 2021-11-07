@@ -10,6 +10,10 @@ githook:
 traffic:
 	while true; do curl -I "$(K3D_LOCAL_URL)/gitops-hugo"; sleep 0.5; done
 
+bad_traffic:
+	while true; do curl -I "$(K3D_LOCAL_URL)/gitops-hugo/bad.html"; sleep 0.2; done
+
+
 dockerhub-secret:
 	./tools/dockerhub-secret.sh
 linkerd-secret:
