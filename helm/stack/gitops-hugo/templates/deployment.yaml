@@ -114,11 +114,11 @@ spec:
       - setWeight: 10
       - pause: {duration: 1m}
       - setWeight: 30
-      - pause: {duration: 30s}
+      - pause: {duration: 1m}
       - setWeight: 50
-      - pause: {duration: 30s}
+      - pause: {duration: 1m}
       - setWeight: 90
-      - pause: {duration: 30s}
+      - pause: {duration: 1m}
       analysis:
         templates:
         - templateName: {{ include "fullname" . }}

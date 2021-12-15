@@ -2,5 +2,5 @@
 envName: local
 autoscaling:
   enabled: false
-replicas: 5
+replicas: 6
 envVars: {}
