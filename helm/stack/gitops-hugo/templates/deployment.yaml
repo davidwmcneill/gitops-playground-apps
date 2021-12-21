@@ -103,13 +103,22 @@ spec:
     canary:
       canaryService: {{ include "fullname" . }}-canary
       stableService: {{ include "fullname" . }}
+      trafficRouting:
+        nginx:
+          stableIngress: {{ include "fullname" . }}  # required
+          # annotationPrefix: customingress.nginx.ingress.kubernetes.io # optional
+          # additionalIngressAnnotations:   # optional
+          #   canary-by-header: X-Canary
+          #   canary-by-header-value: iwantsit
       steps:
       - setWeight: 10
-      - pause: {duration: 2m}
+      - pause: {duration: 1m}
       - setWeight: 30
-      - pause: {duration: 30s}
+      - pause: {duration: 1m}
       - setWeight: 50
-      - pause: {duration: 30s}
+      - pause: {duration: 1m}
+      - setWeight: 90
+      - pause: {duration: 1m}
       analysis:
         templates:
         - templateName: {{ include "fullname" . }}

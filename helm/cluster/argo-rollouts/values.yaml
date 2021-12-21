@@ -1,3 +1,5 @@
 # https://github.com/bitnami/charts/blob/master/bitnami/metrics-server/values.yaml
 
-argo-rollouts: {}
+argo-rollouts:
+  dashboard:
+    enabled: true
