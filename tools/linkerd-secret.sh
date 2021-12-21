@@ -20,7 +20,11 @@ fi
 #     --key=ca.key \
 #     --namespace=linkerd -o yaml | kubeseal --namespace=kube-system --controller-name sealed-secrets -o yaml > ./helm/cluster/linkerd/templates/trust-anchor.yaml
 
+<<<<<<< HEAD
 kubectl create namespace linkerd --dry-run=client -o yaml | kubectl apply -f -
+=======
+kubectl create namespace linkerd
+>>>>>>> a1f22a61199882496dcdbd7f42b8bd84d049257d
 
 # creating directly in the cluster
 # TODO: create via sealed secret
@@ -30,6 +34,10 @@ step certificate create root.linkerd.cluster.local ca.crt ca.key \
     linkerd-trust-anchor \
     --cert=ca.crt \
     --key=ca.key \
+<<<<<<< HEAD
     --namespace=linkerd
 
 rm ca.crt ca.key
+=======
+    --namespace=linkerd
+>>>>>>> a1f22a61199882496dcdbd7f42b8bd84d049257d
