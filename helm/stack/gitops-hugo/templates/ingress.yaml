@@ -18,7 +18,7 @@ spec:
         paths:
           - backend:
               service:
-                name: {{ $fullName }}
+                name: {{ $fullName }}-canary
                 port:
                   number: 80
             path: /gitops-hugo(/|$)(.*)
