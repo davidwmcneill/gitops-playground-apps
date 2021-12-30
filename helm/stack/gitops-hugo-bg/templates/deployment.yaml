@@ -12,6 +12,14 @@ spec:
   {{- if (ne .Values.autoscaling.enabled true) }}
   replicas: {{ .Values.replicas }}
   {{- end }}
+  analysis:
+    # limits the number of successful analysis runs and experiments to be stored in a history
+    # Defaults to 5.
+    successfulRunHistoryLimit: 1
+    # limits the number of unsuccessful analysis runs and experiments to be stored in a history. 
+    # Stages for unsuccessful: "Error", "Failed", "Inconclusive"
+    # Defaults to 5.
+    unsuccessfulRunHistoryLimit: 1
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   selector:
     matchLabels:
@@ -146,7 +154,7 @@ spec:
     count: 20
     successCondition: result[0] >= 0.8
     failureCondition: result[0] < 0.8
-    failureLimit: 3
+    failureLimit: 4
     provider:
       prometheus:
         address: http://kube-prometheus-stack-prometheus.monitoring:9090/prometheus
@@ -157,7 +165,7 @@ spec:
     count: 20
     successCondition: result[0] <= 1000
     failureCondition: result[0] > 1000
-    failureLimit: 3
+    failureLimit: 4
     provider:
       prometheus:
         address: http://kube-prometheus-stack-prometheus.monitoring:9090/prometheus
