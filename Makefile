@@ -10,6 +10,10 @@ githook:
 traffic:
 	while true; do curl -I "$(K3D_LOCAL_URL)/gitops-hugo"; sleep 0.5; done
 
+
+traffic-bg:
+	while true; do curl -I "$(K3D_LOCAL_URL)/gitops-hugo-bg"; sleep 0.4; done
+
 bad_traffic:
 	while true; do curl -I "$(K3D_LOCAL_URL)/gitops-hugo/bad.html"; sleep 0.2; done
 
