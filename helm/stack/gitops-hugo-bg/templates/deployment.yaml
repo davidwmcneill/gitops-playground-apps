@@ -143,6 +143,7 @@ spec:
   metrics:
   - name: success-rate
     interval: 10s
+    count: 20
     successCondition: result[0] >= 0.8
     failureCondition: result[0] < 0.8
     failureLimit: 3
@@ -153,6 +154,7 @@ spec:
           {{`sum(irate(nginx_ingress_controller_requests{ exported_service="{{args.service-name}}",status=~"2.*"}[2m])) / sum(irate(nginx_ingress_controller_requests{ exported_service="{{args.service-name}}"}[2m]))`}}
   - name: avg-req-duration
     interval: 10s
+    count: 20
     successCondition: result[0] <= 1000
     failureCondition: result[0] > 1000
     failureLimit: 3
