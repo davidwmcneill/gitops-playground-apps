@@ -1,0 +1,8 @@
+envName: env2
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 3
+replicas: 3
+
+envVars: {}

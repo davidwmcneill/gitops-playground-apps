@@ -1,0 +1,163 @@
+{{- $fullName := include "fullname" . -}}
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: {{ include "fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "name" . }}
+    helm.sh/chart: {{ include "chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  {{- if (ne .Values.autoscaling.enabled true) }}
+  replicas: {{ .Values.replicas }}
+  {{- end }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        {{- if .Values.podLabels }}
+          {{- toYaml .Values.podLabels | nindent 8 }}
+        {{- end }}
+  {{- if .Values.podAnnotations }}
+      annotations:
+{{ toYaml .Values.podAnnotations | indent 8 }}
+  {{- end }}
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app.kubernetes.io/instance
+                  operator: In
+                  values:
+                  - {{ .Release.Name }}
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+    {{- if .Values.affinity }}
+{{- toYaml .Values.affinity | nindent 8 }}
+    {{- end }}
+    {{- if .Values.nodeSelector }}
+      nodeSelector:
+{{- toYaml .Values.nodeSelector | nindent 8 }}
+    {{- end }}
+    {{- if .Values.tolerations }}
+      tolerations:
+{{- toYaml .Values.tolerations | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "fullname" . }}
+      securityContext:
+        runAsUser: 999
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ tpl .Values.image.repository . }}:{{ tpl .Values.image.tag . }}"
+          imagePullPolicy: IfNotPresent
+          {{- if .Values.envVars }}
+          env:
+            {{- range $key, $val := .Values.envVars }}
+            - name: {{ $key }}
+              value: {{ $val | quote }}
+            {{- end }}
+          {{- end }}
+          ports:
+          - name: http
+            containerPort: {{ .Values.containerPort }}
+            protocol: TCP
+          securityContext:
+            capabilities:
+              drop:
+                - NET_RAW
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+{{- if .Values.livenessProbe.enabled }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.livenessProbe.httpPath }}
+              port: http
+            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
+            failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
+{{- end }}
+{{- if .Values.readinessProbe.enabled }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.readinessProbe.httpPath }}
+              port: http
+            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
+            failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
+{{- end }}
+  strategy:
+    blueGreen: 
+      # activeService specifies the service to update with the new template hash at time of promotion.
+      # This field is mandatory for the blueGreen update strategy.
+      activeService: {{ include "fullname" . }}
+      # previewService specifies the service to update with the new template hash before promotion.
+      # This allows the preview stack to be reachable without serving production traffic.
+      # This field is optional.
+      previewService: {{ include "fullname" . }}-preview
+      # autoPromotionEnabled disables automated promotion of the new stack by pausing the rollout
+      # immediately before the promotion. If omitted, the default behavior is to promote the new
+      # stack as soon as the ReplicaSet are completely ready/available.
+      # Rollouts can be resumed using: `kubectl argo rollouts promote ROLLOUT`
+      autoPromotionEnabled: false
+      autoPromotionSeconds: 30 #used if autopromotion is enabled
+      prePromotionAnalysis:
+        templates:
+        - templateName: {{ include "fullname" . }}
+        args:
+        - name: service-name
+          value: {{ include "fullname" . }}-preview
+      postPromotionAnalysis:
+        templates:
+        - templateName: {{ include "fullname" . }}
+        args:
+        - name: service-name
+          value: {{ include "fullname" . }}
+      previewReplicaCount: 2 #will use replicas if not set
+      scaleDownDelaySeconds: 30 #time to wait to scale down previous revision
+      scaleDownDelayRevisionLimit: 2
+
+---
+# https://argoproj.github.io/argo-rollouts/features/analysis/
+
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: {{ include "fullname" . }}
+spec:
+  args:
+  - name: service-name
+  metrics:
+  - name: success-rate
+    interval: 10s
+    successCondition: result[0] >= 0.8
+    failureCondition: result[0] < 0.8
+    failureLimit: 3
+    provider:
+      prometheus:
+        address: http://kube-prometheus-stack-prometheus.monitoring:9090/prometheus
+        query: |
+          {{`sum(irate(nginx_ingress_controller_requests{ exported_service="{{args.service-name}}",status=~"2.*"}[2m])) / sum(irate(nginx_ingress_controller_requests{ exported_service="{{args.service-name}}"}[2m]))`}}
+  - name: avg-req-duration
+    interval: 10s
+    successCondition: result[0] <= 1000
+    failureCondition: result[0] > 1000
+    failureLimit: 3
+    provider:
+      prometheus:
+        address: http://kube-prometheus-stack-prometheus.monitoring:9090/prometheus
+        query: |
+          {{`sum(irate(nginx_ingress_controller_request_duration_seconds_sum{ exported_service="{{args.service-name}}"}[2m])) / sum(irate(nginx_ingress_controller_request_duration_seconds_count{ exported_service="{{args.service-name}}"}[2m]))`}}

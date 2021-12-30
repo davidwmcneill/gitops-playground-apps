@@ -60,4 +60,6 @@ applications:
 
   gitops-hugo:
     enabled: true
-    
+
+  gitops-hugo-bg:
+    enabled: true  

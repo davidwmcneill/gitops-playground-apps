@@ -180,3 +180,16 @@ applications:
     project: playground-project
     source:
       path: helm/stack/gitops-hugo
+
+  gitops-hugo-bg:
+    enabled: false
+    annotations:
+      argocd-image-updater.argoproj.io/image-list: davidwmcneill/gitops-hugo
+      argocd-image-updater.argoproj.io/write-back-method: argocd
+      argocd-image-updater.argoproj.io/image-list: myapp=davidwmcneill/gitops-hugo
+      argocd-image-updater.argoproj.io/myapp.update-strategy: latest
+    destination:
+      namespace: app-frontend
+    project: playground-project
+    source:
+      path: helm/stack/gitops-hugo-bg
