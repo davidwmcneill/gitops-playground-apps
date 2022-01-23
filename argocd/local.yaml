@@ -63,3 +63,6 @@ applications:
 
   gitops-hugo-bg:
     enabled: true  
+
+  gitops-hugo-basic:
+    enabled: true  
