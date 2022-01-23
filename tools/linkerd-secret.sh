@@ -23,21 +23,19 @@ echo $BASH_VERSION
 kubectl create namespace linkerd --dry-run=client -o yaml | kubectl apply -f -
 
 # Generate root certificate: https://linkerd.io/2.11/tasks/generate-certificates/#trust-anchor-certificate
-step certificate create root.linkerd.cluster.local ca.crt ca.key \
---profile root-ca --no-password --insecure
+# step certificate create root.linkerd.cluster.local ca.crt ca.key \
+# --profile root-ca --no-password --insecure
 
-# creating directly in the cluster
+# creating directly in the cluster - for use with cert-manager: https://linkerd.io/2.11/tasks/automatically-rotating-control-plane-tls-credentials/#save-the-signing-key-pair-as-a-secret
 # TODO: create via sealed secret
-step certificate create identity.linkerd.cluster.local issuer.crt issuer.key \
---profile intermediate-ca --not-after 8760h --no-password --insecure \
---ca ca.crt --ca-key ca.key &&
+step certificate create root.linkerd.cluster.local ca.crt ca.key \
+  --profile root-ca --no-password --insecure &&
   kubectl create secret tls \
     linkerd-trust-anchor \
     --cert=ca.crt \
     --key=ca.key \
     --namespace=linkerd
 
-# Add to helm chart
-cat issuer.crt
+# note in the Linkerd template we create the cert-manager resource reference
 
-rm ca.crt ca.key issuer.crt issuer.key
+rm ca.crt ca.key

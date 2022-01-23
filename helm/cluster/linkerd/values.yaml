@@ -2,21 +2,22 @@
 # https://github.com/linkerd/linkerd-examples
 # https://github.com/linkerd/linkerd2/blob/stable-2.11.1/charts/linkerd2/values.yaml
 # https://github.com/linkerd/linkerd2/tree/main/charts
+# Requires cert-manager is installed 
 
 linkerd2:
-  identityTrustAnchorsPEM: |
-    -----BEGIN CERTIFICATE-----
-    MIIBsjCCAVigAwIBAgIQQ/l/YWPJZALGB1OhoxY0gzAKBggqhkjOPQQDAjAlMSMw
-    IQYDVQQDExpyb290LmxpbmtlcmQuY2x1c3Rlci5sb2NhbDAeFw0yMjAxMjMyMTMx
-    NDBaFw0yMzAxMjMyMTMxNDBaMCkxJzAlBgNVBAMTHmlkZW50aXR5LmxpbmtlcmQu
-    Y2x1c3Rlci5sb2NhbDBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABGNSbjzPXuq9
-    7ZB7mLtqXNJFbyAPJM5uaPwNsFMxBE3FKog3Ojx0Z2hJGuDQ+dEdK7x7aq0CLRrL
-    2kG+LA/rQK2jZjBkMA4GA1UdDwEB/wQEAwIBBjASBgNVHRMBAf8ECDAGAQH/AgEA
-    MB0GA1UdDgQWBBTlBN5v1CaCsYMevdaQsBoeK5DUxTAfBgNVHSMEGDAWgBRk8TfD
-    RHsxmJSwuRelLc9cW3GXSjAKBggqhkjOPQQDAgNIADBFAiEAihIhWoKfOQDkgoMf
-    GjvUxrY5fp2YTqFvGPYaBAmikQYCIAlv3dWeLGCwGfbhEFpGfuOT12mQYk1TnTkk
-    VXKZrjXl
-    -----END CERTIFICATE-----
+  # identityTrustAnchorsPEM: |
+  #   -----BEGIN CERTIFICATE-----
+  #   MIIBsjCCAVigAwIBAgIQQ/l/YWPJZALGB1OhoxY0gzAKBggqhkjOPQQDAjAlMSMw
+  #   IQYDVQQDExpyb290LmxpbmtlcmQuY2x1c3Rlci5sb2NhbDAeFw0yMjAxMjMyMTMx
+  #   NDBaFw0yMzAxMjMyMTMxNDBaMCkxJzAlBgNVBAMTHmlkZW50aXR5LmxpbmtlcmQu
+  #   Y2x1c3Rlci5sb2NhbDBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABGNSbjzPXuq9
+  #   7ZB7mLtqXNJFbyAPJM5uaPwNsFMxBE3FKog3Ojx0Z2hJGuDQ+dEdK7x7aq0CLRrL
+  #   2kG+LA/rQK2jZjBkMA4GA1UdDwEB/wQEAwIBBjASBgNVHRMBAf8ECDAGAQH/AgEA
+  #   MB0GA1UdDgQWBBTlBN5v1CaCsYMevdaQsBoeK5DUxTAfBgNVHSMEGDAWgBRk8TfD
+  #   RHsxmJSwuRelLc9cW3GXSjAKBggqhkjOPQQDAgNIADBFAiEAihIhWoKfOQDkgoMf
+  #   GjvUxrY5fp2YTqFvGPYaBAmikQYCIAlv3dWeLGCwGfbhEFpGfuOT12mQYk1TnTkk
+  #   VXKZrjXl
+  #   -----END CERTIFICATE-----
   identity:
     issuer:
       scheme: "kubernetes.io/tls"
