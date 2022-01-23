@@ -38,4 +38,3 @@ step certificate create root.linkerd.cluster.local ca.crt ca.key \
 
 # note in the Linkerd template we create the cert-manager resource reference
 
-rm ca.crt ca.key
