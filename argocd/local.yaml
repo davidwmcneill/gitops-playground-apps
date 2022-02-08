@@ -68,4 +68,6 @@ applications:
     enabled: true  
 
   emojivoto:
-    enabled: true  
+    enabled: true
+    source:
+      path: helm/stack/emojivoto/overlays/local
