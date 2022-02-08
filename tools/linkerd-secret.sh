@@ -9,10 +9,7 @@ echo $BASH_VERSION
 #     exit 1
 # fi
 
-# step certificate create identity.linkerd.cluster.local ca.crt ca.key \
-#     --profile root-ca \
-#     --no-password \
-#     --insecure
+
 
 # kubectl create secret tls linkerd-trust-anchor \
 #     --dry-run=client \
