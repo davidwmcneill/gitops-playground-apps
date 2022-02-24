@@ -3,6 +3,7 @@ kind: Ingress
 metadata:
   annotations:
     ingress.kubernetes.io/ssl-redirect: 'false'
+    kubernetes.io/ingress.class: nginx
   name: demo-build-webhook
   namespace: argo
 spec:
