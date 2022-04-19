@@ -24,3 +24,5 @@ linkerd2:
     issuer:
       scheme: "kubernetes.io/tls"
   installNamespace: false
+
+  controllerReplicas: 2
