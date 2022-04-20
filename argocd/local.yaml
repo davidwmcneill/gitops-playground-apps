@@ -27,7 +27,7 @@ applications:
     enabled: true
 
   sealed-secrets:
-    enabled: true
+    enabled: false
 
   kube-prometheus-stack:
     enabled: true
@@ -51,7 +51,7 @@ applications:
     enabled: true 
 
   selenium-grid:
-    enabled: true
+    enabled: false
     source:
       path: helm/cluster/selenium-grid/overlays/local
 #--------------------------------------------------------------
