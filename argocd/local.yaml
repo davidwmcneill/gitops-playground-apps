@@ -67,6 +67,9 @@ applications:
   gitops-hugo-basic:
     enabled: true  
 
+  gitops-hugo-dev:
+    enabled: true  
+
   emojivoto:
     enabled: true
     source:

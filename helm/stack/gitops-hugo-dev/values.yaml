@@ -1,0 +1,46 @@
+
+envVars: {}
+image:
+  repository: "davidwmcneill/gitops-hugo-dev"
+  tag: "latest"
+
+revisionHistoryLimit: 3
+replicas: 1
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 2
+  targetCPUUtilizationPercentage: 50
+  targetMemoryUtilizationPercentage: 90
+
+containerPort: 8080
+podAnnotations: {}
+affinity: {}
+nodeSelector: {}
+tolerations: []
+
+resources:
+  limits:
+    cpu: 50m
+    memory: 50Mi
+  requests:
+    cpu: 10m
+    memory: 10Mi
+
+livenessProbe:
+  enabled: true
+  httpPath: /
+  initialDelaySeconds: 20
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1
+  failureThreshold: 3
+
+readinessProbe:
+  enabled: true
+  httpPath: /
+  initialDelaySeconds: 20
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1
+  failureThreshold: 3

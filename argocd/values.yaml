@@ -207,6 +207,15 @@ applications:
     source:
       path: helm/stack/gitops-hugo-basic
 
+  gitops-hugo-dev:
+    enabled: false
+    annotations: {}
+    destination:
+      namespace: app-frontend
+    project: playground-project
+    source:
+      path: helm/stack/gitops-hugo-dev
+
   emojivoto:
     enabled: false
     kustomize: true
