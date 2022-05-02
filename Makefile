@@ -8,6 +8,11 @@ rollouts_dashboard:
 	kubectl port-forward -n argo service/argo-rollouts-dashboard 31000:3100 &
 	open http://localhost:31000/rollouts
 
+linkerd-dashboard:
+	linkerd viz dashboard &
+
+linkerd-demo-vote:
+	kubectl -n emojivoto port-forward svc/web-svc 8080:80
 
 githook:
 	curl -X POST -H "Content-Type: application/json" -d '{"message":"build something"}' $(K3D_LOCAL_URL)/demo-build-webhook
