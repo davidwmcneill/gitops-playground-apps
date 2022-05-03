@@ -18,7 +18,8 @@ githook:
 	curl -X POST -H "Content-Type: application/json" -d '{"message":"build something"}' $(K3D_LOCAL_URL)/demo-build-webhook
 
 traffic:
-	while true; do curl -I "$(K3D_LOCAL_URL)/gitops-hugo"; sleep 0.5; done
+	k6 run k6-tests/hugo-smoke.js
+	# while true; do curl -I "$(K3D_LOCAL_URL)/gitops-hugo"; sleep 0.5; done
 
 traffic-bg:
 	while true; do curl -I "$(K3D_LOCAL_URL)/gitops-hugo-bg"; sleep 0.4; done
