@@ -12,17 +12,20 @@ linkerd-dashboard:
 	linkerd viz dashboard &
 
 linkerd-demo-vote:
-	kubectl -n emojivoto port-forward svc/web-svc 8080:80
+	kubectl -n emojivoto port-forward svc/web-svc 31015:80 &
+	open http://localhost:31015
 
 githook:
 	curl -X POST -H "Content-Type: application/json" -d '{"message":"build something"}' $(K3D_LOCAL_URL)/demo-build-webhook
+
 
 traffic:
 	k6 run k6-tests/hugo-smoke.js
 	# while true; do curl -I "$(K3D_LOCAL_URL)/gitops-hugo"; sleep 0.5; done
 
 traffic-bg:
-	while true; do curl -I "$(K3D_LOCAL_URL)/gitops-hugo-bg"; sleep 0.4; done
+	k6 run k6-tests/hugo-bg-smoke.js
+	# while true; do curl -I "$(K3D_LOCAL_URL)/gitops-hugo-bg"; sleep 0.4; done
 
 traffic-bg-preview:
 	k6 run k6-tests/hugo-bg-smoke-preview.js

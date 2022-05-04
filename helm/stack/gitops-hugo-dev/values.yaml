@@ -2,7 +2,7 @@
 envVars: {}
 image:
   repository: "davidwmcneill/gitops-hugo-dev"
-  tag: "bac58343-8cac-449e-a95d-abcfc78e42f0"
+  tag: "latest"
 
 revisionHistoryLimit: 3
 replicas: 1
