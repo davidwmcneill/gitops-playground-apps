@@ -49,7 +49,7 @@ For now the secret is create with a script outside of git. I'll look to revisit 
 # Reference
 
 - [K3d](https://k3d.io/v5.4.1/) - K3s docker wrapper
-- [Seal-secrets](https://github.com/bitnami-labs/sealed-secrets)
+- [Sealed-secrets](https://github.com/bitnami-labs/sealed-secrets) - Manage secrets in git
 - [Helm](https://helm.sh/) - Kubernetes package manager
 - [Argocd](https://argo-cd.readthedocs.io/en/stable/) - Gitops operator
 - [Argo-Rollouts](https://argoproj.github.io/argo-rollouts/) - Advanced deployment
