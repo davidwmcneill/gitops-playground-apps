@@ -38,10 +38,25 @@ curl -X POST -H "Content-Type: application/json" -d '{"message":"build something
 
 Generate some simple traffic for simulating canary deployment (Using argo-rollouts)
 ```
-while true; do; sleep 1 && curl "http://localhost:8080/gitops-hugo"; done
+k6 run k6-tests/hugo-smoke.js
 ```
 ---
 # Managing secrets
 I was originally using [Seal-secrets](https://github.com/bitnami-labs/sealed-secrets) for this project in keeping with the GitOps mandate.
 But due to the disposable nature of the cluster (which then creates a new encryption key) it's become a bit tedious having to commit the change back into git each time the cluster is recreated.\
 For now the secret is create with a script outside of git. I'll look to revisit this in the future.
+
+# Reference
+
+[K3d](https://k3d.io/v5.4.1/) - K3s docker wrapper
+[Seal-secrets](https://github.com/bitnami-labs/sealed-secrets)
+[Helm](https://helm.sh/) - Kubernetes package manager
+[Argocd](https://argo-cd.readthedocs.io/en/stable/) - Gitops operator
+[Argo-Rollouts](https://argoproj.github.io/argo-rollouts/) - Advanced deployment
+[Argo-Workflows](https://argoproj.github.io/workflows/) - Workflow engine 
+[Argo-Events](https://argoproj.github.io/argo-events/) - Event driven workflow automation
+[K6](https://k6.io/) - Loadtesting tool
+[Tilt](https://tilt.dev/) - Dev build tool for k8s
+[Linkerd](https://linkerd.io/) - Service mesh
+
+
