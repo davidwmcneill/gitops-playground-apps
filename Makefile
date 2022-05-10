@@ -4,11 +4,32 @@ export K3D_LOCAL_PORT = 8080
 export K3D_LOCAL_DOMAIN = localhost
 export K3D_LOCAL_URL = http://$(K3D_LOCAL_DOMAIN):$(K3D_LOCAL_PORT)
 
+rollouts_dashboard:
+	kubectl port-forward -n argo service/argo-rollouts-dashboard 31000:3100 &
+	open http://localhost:31000/rollouts
+
+linkerd-dashboard:
+	linkerd viz dashboard &
+
+linkerd-demo-vote:
+	kubectl -n emojivoto port-forward svc/web-svc 31015:80 &
+	open http://localhost:31015
+
 githook:
 	curl -X POST -H "Content-Type: application/json" -d '{"message":"build something"}' $(K3D_LOCAL_URL)/demo-build-webhook
 
+
 traffic:
-	while true; do curl -I "$(K3D_LOCAL_URL)/gitops-hugo"; sleep 0.5; done
+	k6 run k6-tests/hugo-smoke.js
+	# while true; do curl -I "$(K3D_LOCAL_URL)/gitops-hugo"; sleep 0.5; done
+
+traffic-bg:
+	k6 run k6-tests/hugo-bg-smoke.js
+	# while true; do curl -I "$(K3D_LOCAL_URL)/gitops-hugo-bg"; sleep 0.4; done
+
+traffic-bg-preview:
+	k6 run k6-tests/hugo-bg-smoke-preview.js
+	# while true; do curl -I "$(K3D_LOCAL_URL)/gitops-hugo-bg-preview"; sleep 0.4; done
 
 bad_traffic:
 	while true; do curl -I "$(K3D_LOCAL_URL)/gitops-hugo/bad.html"; sleep 0.2; done

@@ -1,21 +1,28 @@
 # https://linkerd.io/2.10/tasks/gitops/
 # https://github.com/linkerd/linkerd-examples
-# https://github.com/linkerd/linkerd2/blob/main/charts/linkerd2/values.yaml
+# https://github.com/linkerd/linkerd2/blob/stable-2.11.1/charts/linkerd2/values.yaml
+# https://github.com/linkerd/linkerd2/tree/main/charts
+# Requires cert-manager is installed 
 
 linkerd2:
+# set to the value of the ca.crt when generating using tools/linkerd-secret.sh
+# https://linkerd.io/2.11/tasks/automatically-rotating-control-plane-tls-credentials/#installing-with-helm
+
   identityTrustAnchorsPEM: |
     -----BEGIN CERTIFICATE-----
-    MIIBjjCCATSgAwIBAgIRAKF4o0kq5XkDbDE3S5N0LVkwCgYIKoZIzj0EAwIwJTEj
-    MCEGA1UEAxMacm9vdC5saW5rZXJkLmNsdXN0ZXIubG9jYWwwHhcNMjEwODAzMTE0
-    MjE3WhcNMzEwODAxMTE0MjE3WjAlMSMwIQYDVQQDExpyb290LmxpbmtlcmQuY2x1
-    c3Rlci5sb2NhbDBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBEmbo9JzQvHCl7+
-    RC3q9Anj9fKhM158thevO5uMyAUwr+pE3QP7PwyhlwrAXIsj3l8UAalSTAXmVsqI
-    +m6V5LCjRTBDMA4GA1UdDwEB/wQEAwIBBjASBgNVHRMBAf8ECDAGAQH/AgEBMB0G
-    A1UdDgQWBBRJ/fNKuCAPRf4GEONvwtH0gjA66zAKBggqhkjOPQQDAgNIADBFAiBM
-    KvOlWdkMnacW0tPkL1dR4jsHzEAlZvZODKvrU3hPTAIhAMZb8YbTnB1R1YPgbgx0
-    JB6n66U2OD05VXls+kuraNDu
+    MIIBjTCCATOgAwIBAgIQfljblkm5CG9E5I1wAALRSzAKBggqhkjOPQQDAjAlMSMw
+    IQYDVQQDExpyb290LmxpbmtlcmQuY2x1c3Rlci5sb2NhbDAeFw0yMjA0MTkyMDQ3
+    MThaFw0zMjA0MTYyMDQ3MThaMCUxIzAhBgNVBAMTGnJvb3QubGlua2VyZC5jbHVz
+    dGVyLmxvY2FsMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEpbaWysNrvgd8ThPu
+    FE2YD2dIPozFx7uSAO5bldWfNd2sITTrKABTk052mdFlxuzxyNMp+oB4GiDnrnGx
+    /JlFLKNFMEMwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8CAQEwHQYD
+    VR0OBBYEFC2aFJNw9eopkFXra3fsBi2H4vQdMAoGCCqGSM49BAMCA0gAMEUCIQCo
+    CO0yBTYQ0AuxfkNQrtSugm+eN2+3/IwAo6AV1fwoCQIgDvhAa/NZlsKiVUYOVpbN
+    bc3Aj2rgc6KJT6zML8lp5QU=
     -----END CERTIFICATE-----
   identity:
     issuer:
       scheme: "kubernetes.io/tls"
   installNamespace: false
+
+  controllerReplicas: 1
