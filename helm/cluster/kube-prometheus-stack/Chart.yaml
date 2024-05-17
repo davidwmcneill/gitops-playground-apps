@@ -2,7 +2,9 @@ apiVersion: v2
 name: kube-prometheus-stack
 version: 0.1.0
 
+# https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/Chart.yaml
+
 dependencies:
 - name: kube-prometheus-stack
-  version: 16.14.1
+  version: 58.5.3
   repository: https://prometheus-community.github.io/helm-charts
