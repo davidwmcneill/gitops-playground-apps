@@ -13,6 +13,8 @@ default:
     syncOptions: |
       - CreateNamespace=true
       - ApplyOutOfSyncOnly=false
+      - ServerSideApply=true
+      
     kustomize: null
     destination:
       namespace: null

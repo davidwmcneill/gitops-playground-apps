@@ -9,6 +9,10 @@ default:
     enableAutoSync: false
     autoSyncPrune: false
     autoSyncSelfHeal: false
+    syncOptions: |
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=false
+      - ServerSideApply=true
 
 applications:
   ingress-nginx:
@@ -36,16 +40,17 @@ applications:
     autoSyncPrune: true
     autoSyncSelfHeal: true
 
+
   argo-image-updater:
     enabled: true
     source:
       path: helm/cluster/argo-image-updater/overlays/local
 
   linkerd:
-    enabled: true 
+    enabled: false 
 
   linkerd-viz:
-    enabled: true
+    enabled: false
 
   cert-manager:
     enabled: true 
@@ -62,15 +67,15 @@ applications:
     enabled: true
 
   gitops-hugo-bg:
-    enabled: true  
+    enabled: false  
 
   gitops-hugo-basic:
     enabled: true  
 
   gitops-hugo-dev:
-    enabled: true  
+    enabled: false  
 
   emojivoto:
-    enabled: true
+    enabled: false
     source:
       path: helm/stack/emojivoto/overlays/local
