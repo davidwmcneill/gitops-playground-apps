@@ -2,7 +2,7 @@
 ingress-nginx:
 
   controller:
-    kind: DaemonSet
+#    kind: DaemonSet
     metrics:
       port: 10254
       # if this port is changed, change healthz-port: in extraArgs: accordingly
