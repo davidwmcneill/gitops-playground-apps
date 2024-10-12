@@ -1,6 +1,8 @@
 # https://github.com/kubernetes/ingress-nginx/blob/master/charts/ingress-nginx/values.yaml
 ingress-nginx:
+
   controller:
+    kind: DaemonSet
     metrics:
       port: 10254
       # if this port is changed, change healthz-port: in extraArgs: accordingly
