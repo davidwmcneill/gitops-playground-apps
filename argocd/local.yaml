@@ -9,8 +9,10 @@ default:
     enableAutoSync: false
     autoSyncPrune: false
     autoSyncSelfHeal: false
-    syncOptions:
-    - ServerSideApply=true
+    syncOptions: |
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=false
+      - ServerSideApply=true
 
 applications:
   ingress-nginx:
