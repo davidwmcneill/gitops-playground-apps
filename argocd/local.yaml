@@ -9,6 +9,8 @@ default:
     enableAutoSync: false
     autoSyncPrune: false
     autoSyncSelfHeal: false
+    syncOptions:
+    - ServerSideApply=true
 
 applications:
   ingress-nginx:
@@ -35,6 +37,7 @@ applications:
     enableAutoSync: true
     autoSyncPrune: true
     autoSyncSelfHeal: true
+
 
   argo-image-updater:
     enabled: true
