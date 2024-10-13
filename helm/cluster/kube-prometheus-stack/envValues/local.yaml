@@ -1,4 +1,5 @@
 kube-prometheus-stack:
+  prometheus:
     ingress:
       enabled: true
       annotations:
