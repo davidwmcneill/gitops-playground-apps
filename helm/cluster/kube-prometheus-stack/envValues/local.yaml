@@ -15,3 +15,8 @@ kube-prometheus-stack:
       - /prometheus
 
       tls: []
+
+  grafana:
+    ingress:
+      hosts: 
+      - localhost
