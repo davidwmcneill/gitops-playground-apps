@@ -46,6 +46,62 @@ I was originally using [Seal-secrets](https://github.com/bitnami-labs/sealed-sec
 But due to the disposable nature of the cluster (which then creates a new encryption key) it's become a bit tedious having to commit the change back into git each time the cluster is recreated.\
 For now the secret is create with a script outside of git. I'll look to revisit this in the future.
 
+
+## Sample ArgoCD boot strap config
+
+project.yaml
+```
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: playground-project
+  namespace: argocd
+spec:
+  description: playground project
+  sourceRepos:
+  - 'https://github.com/helm/charts.git'
+  - 'https://github.com/argoproj/argocd-example-apps.git'
+  - 'https://github.com/davidwmcneill/gitops-playground-apps.git'
+  destinations:
+  - namespace: '*'
+    server: https://kubernetes.default.svc
+
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+```
+
+app-of-apps.yaml
+```
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app-of-apps-local
+  namespace: argocd
+spec:
+  destination:
+    namespace: argocd
+    server: 'https://kubernetes.default.svc'
+  project: playground-project
+  source:
+    path: argocd
+    repoURL: 'https://github.com/davidwmcneill/gitops-playground-apps.git'
+    targetRevision: local
+    helm:
+      valueFiles:
+      - local.yaml
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=false
+```
+
+
+---
+
 # Reference
 
 - [K3d](https://k3d.io/v5.4.1/) - K3s docker wrapper
