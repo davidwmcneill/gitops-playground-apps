@@ -1,1 +1,15 @@
-kube-prometheus-stack: {}
+kube-prometheus-stack:
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "nginx"
+      labels: {}
+      hosts: localhost
+      pathType: Prefix
+
+      ## Paths to use for ingress rules - one path should match the prometheusSpec.routePrefix
+      ##
+      paths: 
+      - /prometheus
+
+      tls: []
