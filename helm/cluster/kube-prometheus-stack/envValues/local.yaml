@@ -5,7 +5,8 @@ kube-prometheus-stack:
       annotations:
         kubernetes.io/ingress.class: "nginx"
       labels: {}
-      hosts: localhost
+      hosts: 
+      - localhost
       pathType: Prefix
 
       ## Paths to use for ingress rules - one path should match the prometheusSpec.routePrefix
